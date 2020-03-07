@@ -1,0 +1,10 @@
+######## /etc/ufw/before.rules
+
+# START OPENVPN RULES
+# NAT table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+# Allow traffic from OpenVPN client to {{REPLACE_ME_NET_INTERFACE_NAME}} (change to the interface you discovered!)
+-A POSTROUTING -s 10.8.0.0/8 -o {{REPLACE_ME_NET_INTERFACE_NAME}} -j MASQUERADE
+COMMIT
+# END OPENVPN RULES
