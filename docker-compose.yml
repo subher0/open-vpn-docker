@@ -1,10 +1,16 @@
 version: "3.7"
 services:
   openvpn:
-    build: .
+    build:
+      context: .
+      args:
+        - SERVER_IP=${SERVER_IP}
     restart: always
     ports:
     - "1194:1194"
     cap_add:
       - NET_ADMIN
       - SYS_ADMIN
+    volumes:
+    - /etc/openvpn_ca:/docker/ca
+    - /etc/openvpn_server:/docker/server

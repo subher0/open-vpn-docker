@@ -6,6 +6,7 @@ then
   echo "PROPERTY {SERVER_IP} WAS NOT SET. PLEASE SET A SERVER_IP!"
   exit 1
 fi
+
 echo "######### DOWNLOADING NECESSARY DEPENDENCIES #############"
 mkdir -p $CA_HOME
 mkdir -p $SERVER_HOME
@@ -86,10 +87,3 @@ echo "####### CONFIGURING OpenVPN ########"
 cp /docker/openvpn-server.conf /etc/openvpn/server.conf
 echo "net.ipv4.ip_forward=1" >> tee -a /etc/sysctl.conf > /dev/null
 sysctl -p
-
-echo "########## CONFIGURING CLIENT KEY DIRECTORIES #########"
-mkdir -p $SERVER_HOME/client-configs/files
-cp /docker/openvpn-client.conf $SERVER_HOME/client-configs/base.conf
-sed -i -e "s/SERVER_IP_PLACEHOLDER/$SERVER_IP/g" $SERVER_HOME/client-configs/base.conf
-
-cd $SERVER_HOME/client-configs
