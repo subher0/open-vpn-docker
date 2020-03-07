@@ -9,7 +9,6 @@ fi
 
 # INSTALLING DOCKER
 echo "############ INSTALLING DOCKER ############"
-sudo -s
 # WAIT FOR USER TO REALIZE WHAT IS GOING TO HAPPEN
 for i in {1..5}
 do
