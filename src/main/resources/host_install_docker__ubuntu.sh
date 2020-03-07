@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 if [ -z "$USER_TO_ADD" ]
@@ -30,3 +30,7 @@ docker run hello-world
 
 echo "############## ADDING USER $USER_TO_ADD TO DOCKER USERS ###################"
 usermod -aG docker $USER_TO_ADD
+
+echo "############## INSTALLING DOCKER COMPOSE ####################"
+curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
