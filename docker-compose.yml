@@ -1,7 +1,8 @@
 version: "3.7"
 services:
   openvpn:
-    image: bukhach/openvpn:latest
+    build: .
+    restart: always
     ports:
     - "1194:1194"
     cap_add:
