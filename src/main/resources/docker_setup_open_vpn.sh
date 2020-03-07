@@ -7,7 +7,6 @@ then
   exit 1
 fi
 echo "######### DOWNLOADING NECESSARY DEPENDENCIES #############"
-wget -P /docker/ https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.4/EasyRSA-3.0.4.tgz
 mkdir -p $CA_HOME
 mkdir -p $SERVER_HOME
 cp /docker/EasyRSA-3.0.4.tgz $CA_HOME
@@ -35,7 +34,7 @@ cd $SERVER_HOME/EasyRSA-3.0.4/
 ./easyrsa gen-req server nopass << EOF1
 
 EOF1
-sudo cp $SERVER_HOME/EasyRSA-3.0.4/pki/private/server.key /etc/openvpn/
+cp $SERVER_HOME/EasyRSA-3.0.4/pki/private/server.key /etc/openvpn/
 cp $SERVER_HOME/EasyRSA-3.0.4/pki/reqs/server.req $CA_HOME/tmp
 
 
@@ -50,12 +49,12 @@ cp pki/ca.crt $SERVER_HOME/tmp
 
 echo "######## BACK TO THE SERVER ##########"
 cd $SERVER_HOME
-sudo cp $SERVER_HOME/tmp/{server.crt,ca.crt} /etc/openvpn/
+cp $SERVER_HOME/tmp/{server.crt,ca.crt} /etc/openvpn/
 cd ./EasyRSA-3.0.4/
 ./easyrsa gen-dh
 openvpn --genkey --secret ta.key
-sudo cp $SERVER_HOME/EasyRSA-3.0.4/ta.key /etc/openvpn/
-sudo cp $SERVER_HOME/EasyRSA-3.0.4/pki/dh.pem /etc/openvpn/
+cp $SERVER_HOME/EasyRSA-3.0.4/ta.key /etc/openvpn/
+cp $SERVER_HOME/EasyRSA-3.0.4/pki/dh.pem /etc/openvpn/
 mkdir -p $SERVER_HOME/client-configs/keys
 chmod -R 700 $SERVER_HOME/client-configs
 
@@ -81,12 +80,12 @@ echo "############# ADDING SIGNED KEY TO SERVER ###############"
 cd $SERVER_HOME
 cp $SERVER_HOME/tmp/$CERTIFICATI_NAME.crt $SERVER_HOME/client-configs/keys/
 cp $SERVER_HOME/EasyRSA-3.0.4/ta.key $SERVER_HOME/client-configs/keys/
-sudo cp /etc/openvpn/ca.crt $SERVER_HOME/client-configs/keys/
+cp /etc/openvpn/ca.crt $SERVER_HOME/client-configs/keys/
 
 echo "####### CONFIGURING OpenVPN ########"
-sudo cp /docker/openvpn-server.conf /etc/openvpn/server.conf
-echo "net.ipv4.ip_forward=1" >> sudo tee -a /etc/sysctl.conf > /dev/null
-sudo sysctl -p
+cp /docker/openvpn-server.conf /etc/openvpn/server.conf
+echo "net.ipv4.ip_forward=1" >> tee -a /etc/sysctl.conf > /dev/null
+sysctl -p
 
 echo "########## CONFIGURING CLIENT KEY DIRECTORIES #########"
 mkdir -p $SERVER_HOME/client-configs/files
@@ -94,7 +93,3 @@ cp /docker/openvpn-client.conf $SERVER_HOME/client-configs/base.conf
 sed -i -e "s/SERVER_IP_PLACEHOLDER/$SERVER_IP/g" $SERVER_HOME/client-configs/base.conf
 
 cd $SERVER_HOME/client-configs
-
-echo "######## TROUBLE SHOOTING ########"
-sudo mkdir -p /dev/net
-sudo mknod /dev/net/tun c 10 200

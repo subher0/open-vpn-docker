@@ -4,6 +4,6 @@ services:
     image: bukhach/openvpn:latest
     ports:
     - "1194:1194"
-    build:
-      cap_add:
-        - NET_ADMIN
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
