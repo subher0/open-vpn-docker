@@ -12,5 +12,4 @@ services:
       - NET_ADMIN
       - SYS_ADMIN
     volumes:
-    - /etc/openvpn_ca:/docker/ca
-    - /etc/openvpn_server:/docker/server
+    - /etc/openvpn_client_keys:/docker/server/client-configs/files
