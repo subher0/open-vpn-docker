@@ -5,3 +5,4 @@
 3. [Optional] Configure UFW if necessary (conf/UFW and conf/UFW-before.rules)
 4. There is going to be a key in /etc/openvpn_clients/files/initial.ovpn. Use it to connect from a client
 5. [Optional] To generate more keys bash to docker and run /docker/scripts/docker_generated_cert.sh <client_name> 
+### Note: Majority of cryptography is done during build time, so keep this in mind.
