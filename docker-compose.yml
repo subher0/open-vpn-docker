@@ -7,9 +7,10 @@ services:
         - SERVER_IP=${SERVER_IP}
     restart: always
     ports:
-    - "1194:1194"
+    - "1194:1194/udp"
     cap_add:
       - NET_ADMIN
-      - SYS_ADMIN
+      - NET_RAW
     volumes:
-    - /etc/openvpn_client_keys:/docker/server/client-configs/files
+    - /etc/openvpn_clients/files:/docker/server/client-configs/files
+    - /etc/openvpn_clients/keys:/docker/server/client-configs/keys
