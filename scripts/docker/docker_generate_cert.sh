@@ -3,7 +3,7 @@ set -e
 
 CERTIFICATI_NAME=${1}
 echo "########## GENERATING CERT AND KEY PAIR ###########"
-cd $SERVER_HOME/EasyRSA-3.0.4
+cd $SERVER_HOME/EasyRSA-3.2.2
 ./easyrsa gen-req $CERTIFICATI_NAME nopass << EOF3
 
 EOF3
@@ -11,7 +11,7 @@ cp pki/private/$CERTIFICATI_NAME.key $SERVER_HOME/client-configs/keys/
 cp pki/reqs/$CERTIFICATI_NAME.req $CA_HOME/tmp
 
 echo "############# SIGNING CERTIFICATE #################"
-cd $CA_HOME/EasyRSA-3.0.4/
+cd $CA_HOME/EasyRSA-3.2.2/
 ./easyrsa import-req $CA_HOME/tmp/$CERTIFICATI_NAME.req $CERTIFICATI_NAME
 ./easyrsa sign-req client $CERTIFICATI_NAME << EOF4
 yes

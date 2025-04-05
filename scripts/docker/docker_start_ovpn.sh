@@ -2,7 +2,7 @@
 echo "########## CONFIGURING CLIENT KEY DIRECTORIES #########"
 mkdir -p $SERVER_HOME/client-configs/files
 cp /docker/openvpn-client.conf $SERVER_HOME/client-configs/base.conf
-cp $SERVER_HOME/EasyRSA-3.0.4/ta.key $SERVER_HOME/client-configs/keys/
+cp $SERVER_HOME/EasyRSA-3.2.2/ta.key $SERVER_HOME/client-configs/keys/
 cp /etc/openvpn/ca.crt $SERVER_HOME/client-configs/keys/
 sed -i -e "s/SERVER_IP_PLACEHOLDER/$SERVER_IP/g" $SERVER_HOME/client-configs/base.conf
 

@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:24.04
 ARG SERVER_IP
 
 RUN apt-get update && apt-get install -y openvpn tar sed iptables openssl
@@ -12,7 +12,7 @@ ENV SERVER_HOME /docker/server
 ENV PATH $PATH:/docker/scripts
 ENV SERVER_IP $SERVER_IP
 
-ADD https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.4/EasyRSA-3.0.4.tgz /docker
+ADD https://github.com/OpenVPN/easy-rsa/releases/download/v3.2.2/EasyRSA-3.2.2.tgz /docker
 RUN ["chmod", "-R", "+x", "/docker/scripts/"]
 
 RUN /docker/scripts/docker_setup_open_vpn.sh
